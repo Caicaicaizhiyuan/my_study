@@ -1,31 +1,61 @@
-using System.Collections;
+//==========================
+// - FileName: DialogManager.cs
+// - Created: caizhiyuan
+// - CreateTime: #CreateTime#
+// - Email: 3157521164@qq.com
+// - Description:该脚本用于显示一个全局对话框
+//==========================
 using TMPro;
 using UnityEngine;
 
 public class DialogManager : MonoBehaviour
 {
-    //我在想全局是不是可以只用一个对话框就行了，所以写了这个
-    [SerializeField] TMP_Text dialogText;
-    [SerializeField] GameObject dialogPrefab;
+    public static DialogManager Instance;
 
-    private static DialogManager _instance;
-    public static DialogManager Instance
+    [SerializeField] private GameObject dialogPrefab;
+    private GameObject dialogInstance;
+    private TextMeshProUGUI dialogText;
+    private RectTransform dialogRect;
+
+    private void Awake()
     {
-        get {
-            if (_instance == null)
-            {
-                _instance = new DialogManager();
-            }
-            return _instance; }
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        Init();
     }
-    public void ShowDialog(string text)
+
+    private void Init()
     {
+        dialogInstance = Instantiate(dialogPrefab, FindObjectOfType<Canvas>().transform);
+        dialogRect = dialogInstance.GetComponent<RectTransform>();
+        dialogText = dialogInstance.GetComponentInChildren<TextMeshProUGUI>();
+
+        dialogInstance.SetActive(false);
+    }
+
+    /// <summary>
+    /// 在世界坐标位置显示对话框
+    /// </summary>
+    public void ShowDialog(string text, Vector3 worldPosition)
+    {
+        dialogInstance.SetActive(true);
         dialogText.text = text;
-        dialogPrefab.SetActive(true);
+
+        Camera cam = Camera.main;
+        Vector2 screenPos = cam.WorldToScreenPoint(worldPosition);
+
+        dialogRect.position = screenPos;
     }
+
     public void HideDialog()
     {
-        dialogPrefab.SetActive(false);
+        dialogInstance.SetActive(false);
     }
-
 }

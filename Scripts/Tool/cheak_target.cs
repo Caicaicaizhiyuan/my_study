@@ -1,5 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+//==========================
+// - FileName: DialogManager.cs
+// - Created: caizhiyuan
+// - CreateTime: #CreateTime#
+// - Email: 3157521164@qq.com
+// - Description:该脚本用于通过层来检测目标，而当检测到目标时调用目标身上的target_reflect函数来反应
+//==========================
 using UnityEngine;
 
 
@@ -22,10 +27,10 @@ public class cheak_target : MonoBehaviour
         {
             foreach (Collider c in hits)
             {
-                var target = c.GetComponent<target_reflect>();
+                var target = c.GetComponent<Target>();
                 if (target != null)
                 {
-                    target.OnDetected();
+                    target.OnDetect();
                 }
             }
         }
