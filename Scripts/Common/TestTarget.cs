@@ -19,6 +19,7 @@ public class TestTarget : Target
 
     private void Update()
     {
+        CheckGround();
         MoveControl();
     }
     public override void MoveControl()

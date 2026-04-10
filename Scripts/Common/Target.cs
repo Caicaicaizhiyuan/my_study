@@ -36,7 +36,7 @@ public abstract class Target : MonoBehaviour
     {
 
     }
-    void CheckGround()
+    public void CheckGround()
     {
         isGrounded = Physics2D.Raycast(
             transform.position,
