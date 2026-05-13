@@ -1,0 +1,42 @@
+{
+  "dialogues": [
+    {
+      "id": "D001",
+      "speakerId": "Player",
+      "emotion": "default",
+      "text": "you are sb",
+      "options": []
+    },
+    {
+      "id": "D002",
+      "speakerId": "NPC01",
+      "emotion": "happy",
+      "text": "what",
+      "options": []
+    },
+    {
+      "id": "D003",
+      "speakerId": "NPC01",
+      "emotion": "default",
+      "text": "again",
+      "options": [
+        { "text": "yes", "nextId": "D004" },
+        { "text": "no", "nextId": "D005" }
+      ]
+    },
+    {
+      "id": "D004",
+      "speakerId": "NPC01",
+      "emotion": "happy",
+      "text": "l am sb",
+      "options": []
+    },
+    {
+      "id": "D005",
+      "speakerId": "NPC01",
+      "emotion": "happy",
+      "text": "l am not sb",
+      "options": []
+    }
+  ]
+}

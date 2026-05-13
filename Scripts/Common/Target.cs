@@ -8,17 +8,22 @@
 
 using UnityEngine;
 
+public enum TargetType
+{
+    Player,
+    Enemy,
+    NPC
+}
 public abstract class Target : MonoBehaviour
 {
+    public TargetType selfType;
     public bool beControled;
     public Animator animator;
     public Rigidbody2D rb;
-    public float speed = 1;
     public bool isGrounded;
     public Transform[] groundPoint;
     public LayerMask groundLayerMask = ~0;
     public LayerMask wallLayerMask;
-    public float jumpForce=1;
     public float groundCheckDistance=1;
     public abstract void OnDetect();
 
@@ -44,5 +49,10 @@ public abstract class Target : MonoBehaviour
             groundCheckDistance,
             groundLayerMask
         );
+    }
+
+    public void ChangeContral()
+    {
+        beControled = !beControled;
     }
 }

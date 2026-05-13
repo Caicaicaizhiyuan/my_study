@@ -10,10 +10,17 @@ using UnityEngine;
 
 public class TestTarget : Target
 {
-
+    public float activeRange = 4f;
+    public float attackRange = 1f;
+    public float speed = 1.0f;
+    public float jumpForce = 1;
+    public GameObject target;
 
     private void Awake()
     {
+        target = FindAnyObjectByType<Player>().gameObject;
+        selfType =TargetType.Enemy;
+        beControled = false;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -24,7 +31,11 @@ public class TestTarget : Target
     }
     public override void MoveControl()
     {
-        if (!beControled) return;
+        if (!beControled)
+        {
+            MoveLogic();
+            return;
+        }
 
         float hor =
             (Input.GetKey(KeyCode.D) ? 1 : 0) +
@@ -37,7 +48,7 @@ public class TestTarget : Target
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        Debug.Log($"Horizontal: {hor}, Velocity X: {rb.velocity.x}");
+        //Debug.Log($"Horizontal: {hor}, Velocity X: {rb.velocity.x}");
     }
     void OnDrawGizmos()
     {
@@ -50,11 +61,38 @@ public class TestTarget : Target
 
     public override void MoveLogic()
     {
-        throw new System.NotImplementedException();
+        bool inActiveRange = IsInActiveRange(target.transform);
+        if (inActiveRange)
+        {
+            if(IsInAttackRange(target.transform))
+            {
+                //Debug.Log("攻击目标");
+            }
+            else
+            {
+                //Debug.Log("接近目标");
+                var direction = (target.transform.position.x - transform.position.x) > 0 ? 1 : -1;
+                rb.velocity = new Vector2(direction * speed, rb.velocity.y);
+            }
+        }
     }
 
     public override void OnDetect()
     {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            ChangeContral();
+        }
         throw new System.NotImplementedException();
+    }
+
+    public bool IsInActiveRange(Transform target)
+    {
+        return Vector2.Distance(transform.position, target.position) <= activeRange;
+    }
+
+    public bool IsInAttackRange(Transform target)
+    {
+            return Vector2.Distance(transform.position, target.position) <= attackRange;
     }
 }
