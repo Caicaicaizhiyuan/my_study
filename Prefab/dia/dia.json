@@ -1,0 +1,47 @@
+{
+  "dialogues": [
+    {
+      "id": "1",
+      "speakerId": "zhi",
+      "emotion": "default",
+      "text": "you are sb?",
+      "options": [],
+      "nextId": "2"
+    },
+    {
+      "id": "2",
+      "speakerId": "yuan",
+      "emotion": "happy",
+      "text": "no",
+      "options": [],
+      "nextId": "2"
+    },
+    {
+      "id": "3",
+      "speakerId": "zhi",
+      "emotion": "default",
+      "text": "yan zi is sb?",
+      "nextId": "4",
+      "options": [
+        { "text": "yes", "nextId": "4" },
+        { "text": "no", "nextId": "5" }
+      ]
+    },
+    {
+      "id": "4",
+      "speakerId": "NPC01",
+      "emotion": "default",
+      "text": "yan zi now is sb",
+      "options": [],
+      "nextId": "5"
+    } ,
+    {
+      "id": "5",
+      "speakerId": "NPC01",
+      "emotion": "default",
+      "text": "yan zi not is sb?",
+      "options": [],
+      "nextId":"0"
+    }
+  ]
+}
